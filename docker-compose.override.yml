@@ -1,0 +1,6 @@
+services:
+  app:
+    volumes:
+      - .:/app
+      - /app/_build
+      - /app/deps
