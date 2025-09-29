@@ -6,10 +6,28 @@ The entire application is containerized with Docker, providing a consistent and 
 
 ## Overview
 
-The core functionality of this API is to:
-- Accept a user's latitude and longitude.
-- Return a list of nearby coffee shops, sorted by distance.
-- Utilize an in-memory cache (`GenServer`) to store coffee shop data, reducing reliance on external data sources for frequent requests.
+You have been hired by a company that builds an app for coffee addicts. You are responsible for writing a REST API that offers the possibility to take the user's coordinates and return a list of the three closest coffee shops (including distance from the user) in order from the closest to farthest.
+
+### Data Source
+
+The coffee shops are stored in a remote CSV file with the following columns: `Name`, `X`, `Y`.
+
+-   **URL:** `https://static.reasig.ro/interview/coffee_shops_exerceise/coffee_shops.csv`
+-   **Data Quality:** The quality of data in this list may vary. Malformed entries should be handled appropriately.
+
+### API Response
+
+The API should return a list of the three closest coffee shops (including name, location, and distance from the user), sorted from closest to farthest.
+
+-   Distances should be rounded to four decimal places.
+-   It is assumed that all coordinates lie on a plane for distance calculation.
+
+#### Example
+
+For the provided coordinates `X=47.6` and `Y=-122.4`, the response should contain these coffee shops:
+-   Starbucks Seattle2
+-   Starbucks Seattle
+-   Starbucks SF
 
 ## Project Structure
 
