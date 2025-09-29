@@ -33,7 +33,7 @@ defmodule CoffeeApi.DataCache do
         {:ok, coffee_shops}
 
       {:error, reason} ->
-        Logger.error("DataCache failed to load coffee shops: #{inspect(reason)}")
+git add .        Logger.error(fn -> "DataCache failed to load coffee shops: #{inspect(reason)}" end)
         {:ok, []}
     end
   end
