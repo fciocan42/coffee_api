@@ -2,13 +2,14 @@ defmodule CoffeeApiWeb.CoffeeShopController do
   use CoffeeApiWeb, :controller
 
   alias CoffeeApi.CoffeeShops
+  alias CoffeeApi.Location
 
   action_fallback CoffeeApiWeb.FallbackController
 
   def index(conn, %{"lat" => lat_str, "lon" => lon_str}) do
     with {:ok, lat} <- Float.parse(lat_str),
          {:ok, lon} <- Float.parse(lon_str) do
-      coffee_shops = CoffeeShops.list_closest_coffee_shops(lat, lon)
+      coffee_shops = CoffeeShops.list_closest_coffee_shops(%Location{lat: lat, lon: lon})
       render(conn, :index, coffee_shops: coffee_shops)
     else
       _ ->

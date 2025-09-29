@@ -39,8 +39,7 @@ defmodule CoffeeApi.DataSource do
   defp row_to_coffee_shop([name, x_str, y_str]) do
     with {:ok, x} <- Float.parse(x_str),
          {:ok, y} <- Float.parse(y_str) do
-      location = %Location{lat: x, lon: y}
-      %CoffeeShop{name: name, location: location}
+      %CoffeeShop{name: name, location: %Location{lat: x, lon: y}}
     else
       _ -> nil # If parsing fails, return nil to be filtered out by Enum.filter_map/2
     end

@@ -25,14 +25,8 @@ defmodule CoffeeApi.MixProject do
     [
       {:phoenix, "~> 1.7.10"},
       {:finch, "~> 0.16"},
-      {:telemetry_metrics, "~> 0.6"},
-      {:phoenix_live_dashboard, "~> 0.8.2"},
-      {:esbuild, "~> 0.8", runtime: Mix.env() == :dev},
-      {:swoosh, "~> 1.11"},
       {:mox, "~> 1.0", only: :test},
-      {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
-      {:nimble_csv, "~> 1.2"},
-      {:phoenix_swagger, "~> 0.9"}
+      {:nimble_csv, "~> 1.2"}
     ]
   end
 
@@ -40,7 +34,6 @@ defmodule CoffeeApi.MixProject do
   # For example, to install assets, you can run: "mix assets.deploy"
   defp aliases do
     [
-      "assets.deploy": ["esbuild default --minify", "phx.digest"]
     ]
   end
 end

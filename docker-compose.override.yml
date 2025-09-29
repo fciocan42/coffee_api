@@ -3,6 +3,9 @@ services:
     build:
       # For development, target the 'build' stage which has all the dev tools.
       target: build
+    # Keep the container running in the background for development.
+    # This allows you to `docker-compose exec` into it.
+    command: tail -f /dev/null
     volumes:
       - .:/app
       - /app/_build

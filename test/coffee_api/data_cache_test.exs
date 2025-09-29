@@ -5,13 +5,14 @@ defmodule CoffeeApi.DataCacheTest do
 
   alias CoffeeApi.CoffeeShop
   alias CoffeeApi.DataCache
+  alias CoffeeApi.Location
 
   setup :verify_on_exit!
 
   describe "DataCache GenServer" do
     test "on init, it fetches and caches the coffee shops" do
       # 1. Define some mock coffee shops that we expect our cache to hold.
-      mock_coffee_shops = [%CoffeeShop{name: "Test Cafe", x: 1.0, y: 1.0}]
+      mock_coffee_shops = [%CoffeeShop{name: "Test Cafe", location: %Location{lat: 1.0, lon: 1.0}}]
 
       # 2. Expect the DataSource to be called and return our mock data.
       # This mock is defined in `test/test_helper.exs`.

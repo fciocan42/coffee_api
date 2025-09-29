@@ -2,9 +2,7 @@
 /.vscode
 /_build
 /deps
-/priv/static/assets*
-
-# Test files
-/test
-
 /README.md
+erl_crash.dump
+*.plt
+*.plt.hash

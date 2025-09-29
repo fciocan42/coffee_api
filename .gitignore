@@ -16,10 +16,6 @@
 # Erlang crash dumps
 erl_crash.dump
 
-# Dialyzer PLT files
-*.plt
-*.plt.hash
-
 # IDE / Editor specific
 /.idea/
 /.vscode/

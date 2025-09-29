@@ -1,18 +1,19 @@
 defmodule CoffeeApiWeb.HealthControllerTest do
   use ExUnit.Case, async: true
   use Plug.Test
-docker-compose run --rm app mix dialyzer
   import Mox
 
   alias CoffeeApi.DataCache
+  alias CoffeeApi.CoffeeShop
+  alias CoffeeApi.Location
 
   setup :verify_on_exit!
 
   @opts CoffeeApiWeb.Endpoint.init([])
 
   test "GET /api/health returns 200 OK when cache is populated" do
-    # Mock the DataCache to return a non-empty list
-    expect(DataCache, :get_all, fn -> [%{}] end)
+    # Mock the DataCache to return a non-empty list of CoffeeShops
+    expect(DataCache, :get_all, fn -> [%CoffeeShop{name: "Test", location: %Location{lat: 1.0, lon: 1.0}}] end)
 
     conn = conn(:get, "/api/health")
     conn = CoffeeApiWeb.Endpoint.call(conn, @opts)

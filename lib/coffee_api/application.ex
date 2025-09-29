@@ -1,6 +1,4 @@
 defmodule CoffeeApi.Application do
-  # See https://hexdocs.pm/elixir/Application.html
-  # for more information on OTP Applications
   @moduledoc false
 
   use Application
@@ -10,10 +8,6 @@ defmodule CoffeeApi.Application do
     children = [
       # Start the DataCache
       CoffeeApi.DataCache,
-      # Start the Telemetry supervisor
-      CoffeeApiWeb.Telemetry,
-      # Start the PubSub system
-      {Phoenix.PubSub, name: CoffeeApi.PubSub},
       # Start the Finch HTTP client
       {Finch, name: CoffeeApi.Finch},
       # Start the Endpoint (Web server)

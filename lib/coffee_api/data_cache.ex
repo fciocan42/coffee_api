@@ -3,9 +3,9 @@ defmodule CoffeeApi.DataCache do
   A GenServer that caches the list of coffee shops in memory.
   """
   use GenServer
+  require Logger
 
   alias CoffeeApi.CoffeeShop
-  require Logger
 
   # Client API
 
@@ -31,9 +31,8 @@ defmodule CoffeeApi.DataCache do
     case data_source.fetch_coffee_shops() do
       {:ok, coffee_shops} ->
         {:ok, coffee_shops}
-
       {:error, reason} ->
-git add .        Logger.error(fn -> "DataCache failed to load coffee shops: #{inspect(reason)}" end)
+        Logger.error(fn -> "DataCache failed to load coffee shops: #{inspect(reason)}" end)
         {:ok, []}
     end
   end
