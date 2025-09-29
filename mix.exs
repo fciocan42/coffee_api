@@ -30,7 +30,8 @@ defmodule CoffeeApi.MixProject do
       {:esbuild, "~> 0.8", runtime: Mix.env() == :dev},
       {:swoosh, "~> 1.11"},
       {:mox, "~> 1.0", only: :test},
-      {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false}
+      {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
+      {:nimble_csv, "~> 1.2"}
     ]
   end
 
