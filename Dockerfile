@@ -1,44 +1,48 @@
-# Etapa 1: Build - Aici compilăm aplicația
+# Stage 1: Build - This is where we compile the application
 FROM hexpm/elixir:1.15.7-erlang-26.2.1-alpine-3.18.4 AS build
 
-# Argument pentru a controla mediul. Default este 'prod'.
+# Argument to control the environment. Defaults to 'prod'.
 ARG MIX_ENV="prod"
 ENV MIX_ENV=${MIX_ENV}
 
-# Instalează uneltele necesare pentru build
+# Install build tools
 RUN apk add --no-cache build-base git
 
 WORKDIR /app
 
-# Instalează Hex și Rebar
+# Install Hex and Rebar
 RUN mix local.hex --force && mix local.rebar --force
 
-# Copiază fișierele de dependențe și le instalează
-# Acest pas este separat pentru a beneficia de caching-ul Docker
+# Copy dependency files and install them
+# This is a separate step to benefit from Docker's layer caching
 COPY mix.exs mix.lock ./
 RUN if [ "${MIX_ENV}" = "test" ]; then mix deps.get; else mix deps.get --only prod; fi
 RUN mix deps.compile
 
-# Copiază restul aplicației
+# Copy the rest of the application source code
 COPY . .
 
-# Compilează aplicația și generează o versiune de release
-RUN mix release
+# Compile the application and generate a release
+# A dummy secret is required for compilation. The real secret is provided at runtime.
+RUN SECRET_KEY_BASE=$(mix phx.gen.secret) mix release
 
-# Etapa 2: Release - Aici creăm imaginea finală, mult mai mică
+# Stage 2: Release - Here we build the final, much smaller image
 FROM alpine:3.18.4 AS app
+
+# Install runtime dependencies required by Erlang/Elixir
+RUN apk add --no-cache ncurses-libs libstdc++
 
 WORKDIR /app
 
-# Setează variabilele de mediu necesare pentru a rula aplicația Phoenix
+# Set environment variables needed to run the Phoenix application
 ENV HOME=/app
 ENV MIX_ENV=prod
 
-# Copiază release-ul compilat din etapa de build
+# Copy the compiled release from the build stage
 COPY --from=build /app/_build/prod/rel/coffee_api .
 
-# Expune portul pe care va rula serverul Phoenix
+# Expose the port the Phoenix server will run on
 EXPOSE 4000
 
-# Comanda pentru a porni serverul
+# The command to start the server
 CMD ["bin/coffee_api", "start"]

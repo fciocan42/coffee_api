@@ -1,0 +1,21 @@
+# Dependencies
+/deps/
+
+# Build artifacts
+/_build/
+
+# Releases
+*.ez
+
+# Local configuration
+/config/*.secret.exs
+
+# Log files
+/logs/
+
+# Erlang crash dumps
+erl_crash.dump
+
+# IDE / Editor specific
+/.idea/
+/.vscode/

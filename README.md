@@ -40,7 +40,7 @@ coffee_api/
 │   └── coffee_api_web/       # Web interface (controllers, router, views)
 ├── config/                   # Application configuration for different environments
 ├── test/                     # Test files (unit, integration)
-├── Dockerfile                # Defines the multi-stage Docker build for the application
+├── Dockerfile                # Defines the Docker build for the application
 └── docker-compose.yml        # Defines the services to run the application
 ```
 

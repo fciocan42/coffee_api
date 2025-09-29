@@ -1,0 +1,8 @@
+/.git
+/.vscode
+/_build
+/deps
+/README.md
+erl_crash.dump
+*.plt
+*.plt.hash
