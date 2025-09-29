@@ -7,5 +7,6 @@ defmodule CoffeeApiWeb.Router do
 
   scope "/api", CoffeeApiWeb do
     pipe_through :api
+    get "/coffee_shops", CoffeeShopController, :index
   end
 end
