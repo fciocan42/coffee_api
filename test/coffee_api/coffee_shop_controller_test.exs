@@ -3,6 +3,7 @@ defmodule CoffeeApiWeb.CoffeeShopControllerTest do
   use Plug.Test
 
   alias CoffeeApi.CoffeeShops
+  alias CoffeeApi.Location
   import Mox
 
   setup :verify_on_exit!
@@ -12,7 +13,7 @@ defmodule CoffeeApiWeb.CoffeeShopControllerTest do
   test "GET /api/coffee_shops with valid params returns 200 OK" do
     # We don't need to test the context logic again, just that it's called.
     # We can return a simple mock response.
-    expect(CoffeeApi.CoffeeShops, :list_closest_coffee_shops, fn 47.6, -122.4 ->
+    expect(CoffeeApi.CoffeeShops, :list_closest_coffee_shops, fn %Location{lat: 47.6, lon: -122.4} ->
       [%{name: "Test Cafe"}]
     end)
 

@@ -4,6 +4,7 @@ defmodule CoffeeApi.DataSource do
   """
 
   alias CoffeeApi.CoffeeShop
+  alias CoffeeApi.Location
 
   @coffee_shops_url "https://static.reasig.ro/interview/coffee_shops_exerceise/coffee_shops.csv"
 
@@ -38,7 +39,8 @@ defmodule CoffeeApi.DataSource do
   defp row_to_coffee_shop([name, x_str, y_str]) do
     with {:ok, x} <- Float.parse(x_str),
          {:ok, y} <- Float.parse(y_str) do
-      %CoffeeShop{name: name, x: x, y: y}
+      location = %Location{lat: x, lon: y}
+      %CoffeeShop{name: name, location: location}
     else
       _ -> nil # If parsing fails, return nil to be filtered out by Enum.filter_map/2
     end
