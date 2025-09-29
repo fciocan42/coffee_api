@@ -5,6 +5,7 @@ defmodule CoffeeApi.DataCache do
   use GenServer
 
   alias CoffeeApi.CoffeeShop
+  require Logger
 
   # Client API
 
@@ -32,7 +33,7 @@ defmodule CoffeeApi.DataCache do
         {:ok, coffee_shops}
 
       {:error, reason} ->
-        IO.inspect("DataCache failed to load coffee shops: #{inspect(reason)}")
+        Logger.error("DataCache failed to load coffee shops: #{inspect(reason)}")
         {:ok, []}
     end
   end
