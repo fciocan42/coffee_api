@@ -1,5 +1,8 @@
 services:
   app:
+    build:
+      # For development, target the 'build' stage which has all the dev tools.
+      target: build
     volumes:
       - .:/app
       - /app/_build

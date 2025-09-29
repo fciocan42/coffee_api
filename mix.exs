@@ -31,7 +31,8 @@ defmodule CoffeeApi.MixProject do
       {:swoosh, "~> 1.11"},
       {:mox, "~> 1.0", only: :test},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
-      {:nimble_csv, "~> 1.2"}
+      {:nimble_csv, "~> 1.2"},
+      {:phoenix_swagger, "~> 0.9"}
     ]
   end
 

@@ -6,6 +6,7 @@ defmodule CoffeeApi.CoffeeShops do
   alias CoffeeApi.CoffeeShop
   alias CoffeeApi.DataCache
   alias CoffeeApi.DistanceCalculator
+  alias CoffeeApi.Location
 
   @doc """
   Lists the three closest coffee shops to the given coordinates.
@@ -14,24 +15,24 @@ defmodule CoffeeApi.CoffeeShops do
   location (latitude and longitude), and distance from the user,
   sorted from closest to farthest. Distances are rounded to 4 decimal places.
   """
-  @spec list_closest_coffee_shops(float(), float()) :: [
+  @spec list_closest_coffee_shops(Location.t()) :: [
           %{name: String.t(), location: {float(), float()}, distance: float()}
         ]
-  def list_closest_coffee_shops(user_lat, user_lon) do
+  def list_closest_coffee_shops(user_location) do
     DataCache.get_all()
-    |> Enum.map(fn %CoffeeShop{name: name, x: x, y: y} ->
-      distance = DistanceCalculator.calculate({user_lat, user_lon}, {x, y})
-      %{name: name, x: x, y: y, distance: distance}
+    |> Enum.map(fn %CoffeeShop{name: name, location: shop_location} ->
+      distance = DistanceCalculator.calculate(user_location, shop_location)
+      %{name: name, location: shop_location, distance: distance}
     end)
     |> Enum.sort_by(& &1.distance)
     |> Enum.take(3)
     |> Enum.map(&format_coffee_shop/1)
   end
 
-  defp format_coffee_shop(%{name: name, x: x, y: y, distance: distance}) do
+  defp format_coffee_shop(%{name: name, location: %Location{lat: lat, lon: lon}, distance: distance}) do
     %{
       name: name,
-      location: {x, y},
+      location: {lat, lon},
       distance: round_float(distance, 4)
     }
   end
